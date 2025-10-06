@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&display=swap');
+
+body, html {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #333;
+    font-family: sans-serif;
+}
+
+.door-container {
+    perspective: 1000px;
+    position: relative;
+    width: 320px;
+    height: 520px;
+    background-image: url('img/pixel_art_small.png');
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 0 20px rgba(0,0,0,0.8);
+}
+
+.door {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, #8a5a2a, #a06b3e, #8a5a2a);
+    border: 10px solid #5c3a1a;
+    border-radius: 5px;
+    box-shadow: 0 0 50px rgba(0,0,0,0.8), inset 0 0 20px rgba(0,0,0,0.5);
+    position: relative;
+    transform-style: preserve-3d;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.door-panel {
+    width: 80%;
+    height: 25%;
+    background-color: #7a4a1a;
+    border: 2px solid #5c3a1a;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.7);
+    border-radius: 3px;
+}
+
+.note {
+    width: 150px;
+    height: auto;
+    background-color: #fffff0;
+    background-image:
+        linear-gradient(rgba(0,0,0,0.02) 50%, transparent 50%),
+        linear-gradient(90deg, rgba(0,0,0,0.02) 50%, transparent 50%);
+    background-size: 2px 2px;
+    padding: 20px;
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
+    text-align: center;
+    font-family: 'Kalam', cursive;
+    transform: rotate(-5deg) translateZ(30px);
+    position: absolute;
+    top: 100px;
+    clip-path: polygon(2% 3%, 98% 1%, 99% 97%, 89% 99%, 10% 100%, 0% 90%);
+}
+
+.note p {
+    margin: 0;
+    font-size: 24px;
+    color: #333;
+}
+
+.door-link {
+    display: block;
+    width: 300px;
+    height: 500px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    transform-style: preserve-3d;
+    transition: transform 1s;
+    transform-origin: left;
+}
+
+.door-link:hover {
+    transform: rotateY(-80deg);
+}
+
+.note .handwritten {
+    margin-top: 20px;
+    color: #0066cc;
+    text-decoration: underline;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.door-knob {
+    width: 50px;
+    height: 50px;
+    background: radial-gradient(circle, #f0e68c, #daa520, #b8860b);
+    border-radius: 50%;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%) translateZ(30px);
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.5), inset 0 0 10px rgba(255,255,255,0.3);
+}
