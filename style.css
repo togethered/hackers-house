@@ -12,18 +12,24 @@ body, html {
 
 .door-container {
     perspective: 1000px;
+    position: relative;
+    width: 320px;
+    height: 520px;
+    background-image: url('img/pixel_art_small.png');
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 0 20px rgba(0,0,0,0.8);
 }
 
 .door {
-    width: 300px;
-    height: 500px;
+    width: 100%;
+    height: 100%;
     background: linear-gradient(to right, #8a5a2a, #a06b3e, #8a5a2a);
     border: 10px solid #5c3a1a;
     border-radius: 5px;
     box-shadow: 0 0 50px rgba(0,0,0,0.8), inset 0 0 20px rgba(0,0,0,0.5);
     position: relative;
     transform-style: preserve-3d;
-    transition: transform 1s;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -39,14 +45,14 @@ body, html {
     border-radius: 3px;
 }
 
-.door:hover {
-    transform: rotateY(20deg);
-}
-
 .note {
     width: 150px;
     height: auto;
     background-color: #fffff0;
+    background-image:
+        linear-gradient(rgba(0,0,0,0.02) 50%, transparent 50%),
+        linear-gradient(90deg, rgba(0,0,0,0.02) 50%, transparent 50%);
+    background-size: 2px 2px;
     padding: 20px;
     box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
     text-align: center;
@@ -54,6 +60,7 @@ body, html {
     transform: rotate(-5deg) translateZ(30px);
     position: absolute;
     top: 100px;
+    clip-path: polygon(2% 3%, 98% 1%, 99% 97%, 89% 99%, 10% 100%, 0% 90%);
 }
 
 .note p {
@@ -62,21 +69,28 @@ body, html {
     color: #333;
 }
 
-.note a {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 10px 15px;
-    background-color: #d2691e;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    font-size: 16px;
-    transition: background-color 0.3s;
-    border-bottom: 2px solid #a05215;
+.door-link {
+    display: block;
+    width: 300px;
+    height: 500px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    transform-style: preserve-3d;
+    transition: transform 1s;
+    transform-origin: left;
 }
 
-.note a:hover {
-    background-color: #b85c1a;
+.door-link:hover {
+    transform: rotateY(-80deg);
+}
+
+.note .handwritten {
+    margin-top: 20px;
+    color: #0066cc;
+    text-decoration: underline;
+    font-size: 18px;
+    font-weight: bold;
 }
 
 .door-knob {
