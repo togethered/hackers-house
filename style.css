@@ -6,6 +6,9 @@ body, html {
     background-color: #333;
     font-family: sans-serif;
     overflow: hidden;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .scene {
@@ -17,18 +20,32 @@ body, html {
 
 .wall {
     flex: 3;
-    background-color: #8c8c8c;
-    background-image: linear-gradient(0deg, #8c8c8c, #a6a6a6);
+    background-color: #91d1b6;
     display: flex;
     justify-content: center;
     align-items: flex-end;
     position: relative;
+    box-shadow: inset 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.wall::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    background:
+        radial-gradient(10px at 50% 100%, transparent 50%, #e3785e 51%);
+    background-size: 20px 20px;
 }
 
 .floor {
     flex: 1;
-    background-color: #594a3a;
-    background-image: linear-gradient(180deg, #594a3a, #4a3a2a);
+    background-color: #7d7d7d; /* Lighter asphalt gray */
+    background-image:
+        repeating-linear-gradient(90deg, #888, #888 1px, transparent 1px, transparent 100px),
+        linear-gradient(180deg, #7d7d7d, #6d6d6d);
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -39,10 +56,12 @@ body, html {
     perspective: 1000px;
     z-index: 1;
     position: relative;
-    width: 320px;
-    height: 520px;
+    width: 240px;
+    height: 390px;
+    max-width: 90vw;
+    max-height: 70vh;
     background-image: url('img/pixel_art_small.png');
-    background-size: cover;
+    background-size: 100% 100%;
     background-position: center;
     box-shadow: 0 0 20px rgba(0,0,0,0.8);
 }
@@ -51,15 +70,32 @@ body, html {
     width: 100%;
     height: 100%;
     background: linear-gradient(to right, #8a5a2a, #a06b3e, #8a5a2a);
-    border: 10px solid #5c3a1a;
+    border: 5px solid #5c3a1a;
     border-radius: 5px;
-    box-shadow: 0 0 50px rgba(0,0,0,0.8), inset 0 0 20px rgba(0,0,0,0.5);
+    box-shadow: 0 0 25px rgba(0,0,0,0.8), inset 0 0 10px rgba(0,0,0,0.5);
     position: relative;
     transform-style: preserve-3d;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+    transform-origin: left;
+    transform: rotateY(-20deg);
+    animation: door-creak 8s infinite ease-in-out;
+    transition: transform 0.3s ease;
+}
+
+.door:hover {
+    transform: rotateY(-28deg); /* Opens a little more on hover */
+}
+
+@keyframes door-creak {
+    0%, 100% {
+        transform: rotateY(-20deg); /* Opens wider */
+    }
+    50% {
+        transform: rotateY(-25deg); /* Opens even wider mid-animation */
+    }
 }
 
 .door-panel {
@@ -72,136 +108,105 @@ body, html {
 }
 
 .note {
-    width: 150px;
+    width: 60%;
     height: auto;
     background-color: #fffff0;
-    background-image:
-        linear-gradient(rgba(0,0,0,0.02) 50%, transparent 50%),
-        linear-gradient(90deg, rgba(0,0,0,0.02) 50%, transparent 50%);
-    background-size: 2px 2px;
-    padding: 20px;
-    box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
+    padding: 10%;
+    box-shadow: 3px 3px 10px rgba(0,0,0,0.3);
     text-align: center;
     font-family: 'Kalam', cursive;
-    transform: rotate(-5deg) translateZ(30px);
+    transform: rotate(-5deg) translateZ(15px);
     position: absolute;
-    top: 100px;
-    clip-path: polygon(2% 3%, 98% 1%, 99% 97%, 89% 99%, 10% 100%, 0% 90%);
+    top: 20%;
     transform-origin: top center;
-    animation: sway 5s infinite ease-in-out;
+    animation: paper-sway 6s infinite ease-in-out;
+    transition: transform 0.3s ease;
 }
 
-@keyframes sway {
-    0% {
-        transform: rotate(-5deg) rotateZ(0deg);
+.note:hover {
+    transform: rotate(-3deg) translateZ(20px) scale(1.05); /* Lifts and enlarges slightly */
+}
+
+@keyframes paper-sway {
+    0%, 100% {
+        transform: rotate(-5deg) rotateZ(0deg) translateZ(15px);
     }
     50% {
-        transform: rotate(-5deg) rotateZ(1.5deg);
-    }
-    100% {
-        transform: rotate(-5deg) rotateZ(0deg);
+        transform: rotate(-5deg) rotateZ(2.5deg) translateX(5px) translateZ(15px);
     }
 }
 
 .tape {
     position: absolute;
-    top: -10px;
+    top: -5px;
     left: 50%;
     transform: translateX(-50%);
-    width: 80px;
-    height: 25px;
+    width: 40%;
+    height: 15px;
     background-color: rgba(255, 255, 224, 0.4);
-    border-left: 1px solid rgba(0,0,0,0.1);
-    border-right: 1px solid rgba(0,0,0,0.1);
-    box-shadow: 0 0 2px rgba(0,0,0,0.2);
-}
-
-.note p {
-    margin: 0;
-    font-size: 24px;
-    color: #333;
-}
-
-.door-link {
-    display: block;
-    width: 300px;
-    height: 500px;
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    transform-style: preserve-3d;
-    transition: transform 1s;
-    transform-origin: left;
-}
-
-.door-container:hover .door-link {
-    transform: rotateY(-45deg);
 }
 
 .note .handwritten {
-    margin-top: 20px;
-    color: #0066cc;
-    text-decoration: underline;
-    font-size: 18px;
+    color: #000;
+    text-decoration: none;
+    font-size: 1.2rem;
     font-weight: bold;
 }
 
 .door-knob {
-    width: 50px;
-    height: 50px;
+    width: 25px;
+    height: 25px;
     background: radial-gradient(circle, #f0e68c, #daa520, #b8860b);
     border-radius: 50%;
     position: absolute;
-    right: 20px;
+    right: 10px;
     top: 50%;
-    transform: translateY(-50%) translateZ(30px);
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.5), inset 0 0 10px rgba(255,255,255,0.3);
+    transform: translateY(-50%) translateZ(15px);
 }
 
 .doormat {
-    width: 400px;
-    height: 100px;
-    background-color: #4a3a2a;
-    border: 5px solid #3a2a1a;
+    width: 250px;
+    height: 60px;
+    background-color: #5D4037;
+    border: 2px solid #4E342E;
     border-radius: 5px;
-    margin-top: -20px;
+    margin-top: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
     font-family: sans-serif;
-    font-size: 40px;
+    font-size: 1.5rem;
     font-weight: bold;
-    color: #a68a6a;
-    text-shadow: 2px 2px 2px #3a2a1a;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    color: #BCAAA4;
+    transform: perspective(100px) rotateX(15deg) skewX(-20deg);
 }
 
 .speech-bubble {
     position: absolute;
-    bottom: 120px;
-    right: 20px;
-    width: 200px;
-    padding: 20px;
+    bottom: 110px; /* Positioned above the dog */
+    right: 16%; /* Aligned better with the dog */
+    width: 150px;
+    padding: 15px;
     background-color: #fff;
     border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    font-family: sans-serif;
-    font-size: 18px;
+    font-family: 'Kalam', cursive;
+    font-size: 1.1rem;
+    color: #333;
     text-align: center;
     opacity: 0;
     visibility: hidden;
     animation: fadeIn 1s ease-in-out 5s forwards;
+    z-index: 10;
 }
 
 .speech-bubble::after {
     content: '';
     position: absolute;
-    bottom: -20px;
-    left: 50%;
-    transform: translateX(-50%);
-    border-width: 20px 20px 0 0;
+    top: 100%; /* At the bottom of the bubble */
+    right: 30px; /* Positioned on the right to point at the dog */
+    border-width: 15px 10px 0; /* Downward pointing triangle */
     border-style: solid;
-    border-color: #fff transparent transparent transparent;
+    border-color: #fff transparent transparent;
 }
 
 @keyframes fadeIn {
@@ -213,4 +218,175 @@ body, html {
         opacity: 1;
         visibility: visible;
     }
+}
+
+/* Environment Styling */
+.window {
+    position: absolute;
+    z-index: 1;
+    width: 120px;
+    height: 180px;
+    background-color: #87ceeb;
+    border: 10px solid white;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    bottom: 200px;
+}
+
+.left-window { left: 5%; }
+.right-window { right: 5%; }
+
+.plant {
+    position: absolute;
+    z-index: 2;
+    bottom: 0;
+    left: 15%;
+    width: 80px;
+    height: 120px;
+}
+
+.plant::after {
+    content: ''; /* Pot */
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 50px;
+    background-color: #d2691e;
+    border-radius: 5px 5px 10px 10px;
+}
+
+.leaf {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-color: #2e8b57;
+    border-radius: 50%;
+    transform-origin: bottom center;
+    animation: leaf-sway 4s infinite ease-in-out;
+}
+
+.leaf1 { top: 20px; left: 10px; background-color: #3cb371; animation-delay: 0s; }
+.leaf2 { top: 10px; left: 40px; animation-delay: 0.5s; }
+.leaf3 { top: 30px; left: 25px; background-color: #228b22; animation-delay: 1s; }
+
+@keyframes leaf-sway {
+    0%, 100% {
+        transform: rotate(0deg) translateX(0);
+    }
+    50% {
+        transform: rotate(5deg) translateX(5px);
+    }
+}
+
+.dog {
+    width: 70px;
+    height: 50px;
+    background: #eec983;
+    border-radius: 30px 30px 10px 10px;
+    position: absolute;
+    z-index: 2;
+    bottom: 0;
+    right: 15%;
+}
+
+.dog .face {
+    position: absolute;
+    width: 45px;
+    height: 40px;
+    background: #eec983;
+    border-radius: 50% 50% 40% 40%;
+    top: -25px;
+    left: -15px;
+}
+
+.dog .ear {
+    position: absolute;
+    top: -15px; /* Raised higher */
+    width: 25px;
+    height: 35px; /* Taller ears */
+    background: #d4b475;
+    clip-path: polygon(50% 0, 0 100%, 100% 100%);
+    z-index: 1; /* In front of face */
+}
+
+.dog .ear:first-of-type { left: -10px; transform: rotate(-30deg); }
+.dog .ear:last-of-type { right: -10px; transform: rotate(30deg); }
+
+.dog .eye {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background: #000;
+    border-radius: 50%;
+    top: 15px;
+}
+.dog .eye:first-child { left: 10px; }
+.dog .eye:last-child { right: 10px; }
+
+.dog .nose {
+    position: absolute;
+    width: 8px;
+    height: 5px;
+    background: #000;
+    border-radius: 40%;
+    top: 25px;
+    left: 5px;
+}
+
+.dog .leg {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background: #d4b475;
+    border-radius: 5px;
+    bottom: -10px;
+}
+.dog .leg:first-child { left: 10px; }
+.dog .leg:last-child { right: 10px; }
+
+.dog .tail {
+    position: absolute;
+    width: 8px;
+    height: 40px;
+    background: #d4b475;
+    border-radius: 4px;
+    bottom: 30px;
+    right: -5px;
+    transform-origin: bottom center;
+    animation: tail-wag 0.5s infinite;
+}
+
+@keyframes tail-wag {
+    50% { transform: rotate(-10deg); }
+}
+
+.door-container::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 98%;
+    width: 30px;
+    height: 100%;
+    background: linear-gradient(to top, rgba(241, 196, 15, 0.5), transparent);
+    filter: blur(10px);
+    transform: skewX(-10deg);
+    transform-origin: left bottom;
+    animation: glow 3s infinite ease-in-out;
+}
+
+@keyframes glow {
+    50% { opacity: 0.9; }
+}
+
+/* Media Queries */
+@media (max-width: 600px) {
+    .door-container { width: 180px; height: 292.5px; }
+    .doormat { width: 200px; height: 50px; font-size: 1.2rem; }
+    .note .handwritten { font-size: 0.7rem; }
+    .speech-bubble { width: 120px; padding: 10px; font-size: 0.8rem; }
+    .window { display: none; }
+    .plant { left: 1%; width: 60px; height: 100px; }
+    .dog { right: 1%; transform: scale(0.8); }
 }
