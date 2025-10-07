@@ -21,12 +21,15 @@ body, html {
 .wall {
     flex: 3;
     background-color: #f0e8d9; /* A warm, stucco-like color */
-    background-image: linear-gradient(0deg, #e4dacc, #fdf5e6);
+    background-image:
+        linear-gradient(0deg, rgba(0,0,0,0.1), transparent),
+        linear-gradient(0deg, #e4dacc, #fdf5e6);
     display: flex;
     justify-content: center;
     align-items: flex-end;
     position: relative;
     border-top: 20px solid #c0392b; /* Victorian red accent */
+    box-shadow: inset 0 10px 30px rgba(0,0,0,0.2);
 }
 
 .floor {
@@ -43,12 +46,12 @@ body, html {
     perspective: 1000px;
     z-index: 1;
     position: relative;
-    width: 200px; /* Adjusted from 320px */
-    height: 325px; /* Adjusted from 520px */
+    width: 240px; /* Increased from 200px */
+    height: 390px; /* Increased from 325px */
     max-width: 90vw;
     max-height: 70vh;
     background-image: url('img/pixel_art_small.png');
-    background-size: 100% 100%; /* Changed from cover */
+    background-size: 100% 100%;
     background-position: center;
     box-shadow: 0 0 20px rgba(0,0,0,0.8);
 }
@@ -86,44 +89,41 @@ body, html {
 }
 
 .note {
-    width: 60%; /* responsive width */
+    width: 60%;
     height: auto;
     background-color: #fffff0;
     background-image:
         linear-gradient(rgba(0,0,0,0.02) 50%, transparent 50%),
         linear-gradient(90deg, rgba(0,0,0,0.02) 50%, transparent 50%);
     background-size: 2px 2px;
-    padding: 10%; /* responsive padding */
-    box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
+    padding: 10%;
+    box-shadow: 3px 3px 10px rgba(0,0,0,0.3), -3px 0 5px rgba(0,0,0,0.1);
     text-align: center;
     font-family: 'Kalam', cursive;
-    transform: rotate(-5deg) translateZ(15px); /* Adjusted Z */
+    transform: rotate(-5deg) translateZ(15px);
     position: absolute;
-    top: 20%; /* Adjusted top */
+    top: 20%;
     clip-path: polygon(2% 3%, 98% 1%, 99% 97%, 89% 99%, 10% 100%, 0% 90%);
     transform-origin: top center;
-    animation: sway 5s infinite ease-in-out;
+    animation: paper-sway 6s infinite ease-in-out;
 }
 
-@keyframes sway {
-    0% {
+@keyframes paper-sway {
+    0%, 100% {
         transform: rotate(-5deg) rotateZ(0deg) translateZ(15px);
     }
     50% {
-        transform: rotate(-5deg) rotateZ(1.5deg) translateZ(15px);
-    }
-    100% {
-        transform: rotate(-5deg) rotateZ(0deg) translateZ(15px);
+        transform: rotate(-5deg) rotateZ(2.5deg) translateX(5px) translateZ(15px);
     }
 }
 
 .tape {
     position: absolute;
-    top: -10px;
+    top: -5px; /* Smaller tape */
     left: 50%;
     transform: translateX(-50%);
-    width: 60%; /* responsive width */
-    height: 20px; /* Adjusted height */
+    width: 40%; /* Smaller tape */
+    height: 15px; /* Smaller tape */
     background-color: rgba(255, 255, 224, 0.4);
     border-left: 1px solid rgba(0,0,0,0.1);
     border-right: 1px solid rgba(0,0,0,0.1);
@@ -132,25 +132,25 @@ body, html {
 
 .note p {
     margin: 0;
-    font-size: 1rem; /* responsive font size */
+    font-size: 1rem;
     color: #333;
 }
 
 .door-link {
     display: block;
-    width: 100%; /* fill container */
-    height: 100%; /* fill container */
+    width: 100%;
+    height: 100%;
     position: absolute;
-    top: 0; /* align */
-    left: 0; /* align */
+    top: 0;
+    left: 0;
     transform-style: preserve-3d;
 }
 
 .note .handwritten {
-    margin-top: 10px; /* Adjusted margin */
-    color: #0066cc;
-    text-decoration: underline;
-    font-size: 0.8rem; /* responsive font size */
+    margin-top: 10px;
+    color: #000; /* Black text */
+    text-decoration: none; /* No underline */
+    font-size: 0.8rem;
     font-weight: bold;
 }
 
@@ -167,49 +167,51 @@ body, html {
 }
 
 .doormat {
-    width: 250px; /* Adjusted width */
-    height: 60px; /* Adjusted height */
-    background-color: #4a3a2a;
-    border: 5px solid #3a2a1a;
+    width: 250px;
+    height: 60px;
+    background-color: #5D4037; /* Darker, more realistic brown */
+    border: 2px solid #4E342E;
     border-radius: 5px;
-    margin-top: -15px; /* Adjusted margin */
+    margin-top: -25px; /* Adjust position with new perspective */
     display: flex;
     justify-content: center;
     align-items: center;
     font-family: sans-serif;
-    font-size: 1.5rem; /* responsive font size */
+    font-size: 1.5rem;
     font-weight: bold;
-    color: #a68a6a;
-    text-shadow: 2px 2px 2px #3a2a1a;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    color: #BCAAA4;
+    text-shadow: 1px 1px 1px #3E2723;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+    transform: perspective(100px) rotateX(15deg) skewX(-20deg);
 }
 
 .speech-bubble {
     position: absolute;
-    bottom: 120px;
-    right: 20px;
-    width: 150px; /* Adjusted width */
-    padding: 15px; /* Adjusted padding */
+    bottom: 100px; /* Positioned above the dog */
+    right: 18%; /* Aligned with the dog */
+    width: 150px;
+    padding: 15px;
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    font-family: sans-serif;
-    font-size: 1rem; /* responsive font size */
+    font-family: 'Kalam', cursive; /* Match handwritten font */
+    font-size: 1.1rem; /* Larger, more legible text */
+    color: #333;
     text-align: center;
     opacity: 0;
     visibility: hidden;
     animation: fadeIn 1s ease-in-out 5s forwards;
+    z-index: 10; /* Ensure it's on top */
 }
 
 .speech-bubble::after {
     content: '';
     position: absolute;
-    bottom: -20px;
-    left: 50%;
-    transform: translateX(-50%);
-    border-width: 20px 20px 0 0;
+    bottom: -15px; /* Adjusted for new position */
+    right: 20px; /* Pointing from the right side */
+    border-width: 15px 0 15px 20px;
     border-style: solid;
-    border-color: #fff transparent transparent transparent;
+    border-color: transparent transparent transparent #fff;
 }
 
 @keyframes fadeIn {
@@ -270,8 +272,8 @@ body, html {
 /* Environment Styling */
 .window {
     position: absolute;
-    width: 100px;
-    height: 150px;
+    width: 120px; /* Increased from 100px */
+    height: 180px; /* Increased from 150px */
     background-color: #87ceeb; /* Sky blue */
     border: 10px solid #8b4513; /* Saddle brown */
     border-top-left-radius: 50px;
@@ -337,7 +339,7 @@ body, html {
 .dog {
     width: 70px;
     height: 50px;
-    background: #a0522d; /* Sienna */
+    background: #eec983; /* Blonde */
     border-radius: 30px 30px 10px 10px;
     position: absolute;
     bottom: 0;
@@ -348,24 +350,38 @@ body, html {
 .dog::after {
     content: '';
     position: absolute;
-    width: 40px;
+    width: 45px; /* Slightly larger head */
     height: 40px;
-    background: #a0522d;
-    border-radius: 50%;
-    top: -20px; /* Position head on top of body */
+    background: #eec983; /* Blonde */
+    border-radius: 50% 50% 40% 40%; /* More of a snout shape */
+    top: -25px;
+    left: -15px;
+}
+
+/* Dog ears */
+.dog::before {
+    content: '';
+    position: absolute;
+    top: -35px;
     left: -10px;
-    /* Ear */
-    box-shadow: 15px -10px 0 #8b4513;
+    width: 15px;
+    height: 20px;
+    background: #d4b475;
+    /* Pointy ear shape */
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    transform: rotate(-15deg);
+    /* Second ear using box-shadow */
+    box-shadow: 25px 5px 0 0px #d4b475;
 }
 
 /* Dog tail */
 .dog .tail {
     position: absolute;
-    width: 15px;
-    height: 15px;
-    background: #8b4513; /* Darker tail */
-    border-radius: 50%;
-    bottom: 35px; /* Position on the rear of the body */
+    width: 8px; /* Thinner, longer tail */
+    height: 40px;
+    background: #d4b475; /* Slightly darker tail */
+    border-radius: 4px;
+    bottom: 30px;
     right: -5px;
     transform-origin: bottom center;
     animation: tail-wag 0.5s infinite;
