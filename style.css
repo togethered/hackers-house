@@ -1,6 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&display=swap');
-
-body, html {
+@import url('https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&display=swap');body, html {
     height: 100%;
     margin: 0;
     background-color: #333;
@@ -9,16 +7,12 @@ body, html {
     -webkit-user-select: none;
     -ms-user-select: none;
     user-select: none;
-}
-
-.scene {
+}.scene {
     width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
-}
-
-.wall {
+}.wall {
     flex: 3;
     background: linear-gradient(to bottom, #a1e1c6, #81c1b6);
     display: flex;
@@ -26,9 +20,7 @@ body, html {
     align-items: flex-end;
     position: relative;
     box-shadow: inset 0 10px 30px rgba(0,0,0,0.2);
-}
-
-.wall::before {
+}.wall::before {
     content: '';
     position: absolute;
     top: 0;
@@ -38,9 +30,7 @@ body, html {
     background:
         radial-gradient(20px at 50% 100%, transparent 50%, #e3785e 51%);
     background-size: 40px 40px;
-}
-
-.floor {
+}.floor {
     flex: 1;
     background-color: #7d7d7d; /* Lighter asphalt gray */
     background-image:
@@ -51,11 +41,7 @@ body, html {
     justify-content: center;
     align-items: flex-start;
     position: relative;
-}
-
-.door-container {
-    perspective: 1000px;
-    z-index: 1;
+}.door-frame {
     position: relative;
     width: 240px;
     height: 390px;
@@ -65,14 +51,47 @@ body, html {
     background-size: 100% 100%;
     background-position: center;
     box-shadow: 0 0 20px rgba(0,0,0,0.8);
+    border-radius: 120px 120px 0 0;
+    overflow: hidden;
 }
 
+.door-frame::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120%;
+    height: 30px;
+    background: radial-gradient(ellipse at center, rgba(255, 255, 100, 0.8), transparent 70%);
+    filter: blur(15px);
+    animation: flickering-glow 2s infinite ease-in-out;
+}
+
+@keyframes flickering-glow {
+    0%, 100% {
+        opacity: 0.7;
+        transform: translateX(-50%) scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: translateX(-50%) scale(1.1);
+    }
+}
+
+.door-container {
+    perspective: 1000px;
+    z-index: 0;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
 .door {
     width: 100%;
     height: 100%;
     background: linear-gradient(to right, #8a5a2a, #a06b3e, #8a5a2a);
     border: 5px solid #5c3a1a;
-    border-radius: 5px;
+    border-radius: 120px 120px 0 0;
     box-shadow: 0 5px 35px rgba(0,0,0,0.6), inset 0 0 15px rgba(0,0,0,0.7);
     position: relative;
     transform-style: preserve-3d;
@@ -82,39 +101,16 @@ body, html {
     align-items: center;
     transform-origin: left;
     transform: rotateY(-20deg);
-    animation: door-creak 8s infinite ease-in-out;
     transition: transform 0.3s ease;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+    z-index: 100;
 }
-
-.door:hover {
-    transform: rotateY(-28deg); /* Opens a little more on hover */
-}
-
-@keyframes door-creak {
-    0%, 100% {
-        transform: rotateY(-20deg); /* Opens wider */
-    }
-    50% {
-        transform: rotateY(-25deg); /* Opens even wider mid-animation */
-    }
-}
-
-.door-panel {
-    width: 80%;
-    height: 25%;
-    background-color: #7a4a1a;
-    border: 2px solid #5c3a1a;
-    box-shadow: inset 0 0 10px rgba(0,0,0,0.7);
-    border-radius: 3px;
-}
-
-.note {
-    width: 60%;
+.door-container:hover .door {
+    transform: rotateY(60deg); /* Opens a little more on hover */
+}.note {
+    width: 50%;
     height: auto;
     background-color: #fdf5e6;
-    padding: 10%;
+    padding: 5%;
     box-shadow: 2px 2px 8px rgba(0,0,0,0.2);
     text-align: center;
     font-family: 'Kalam', cursive;
@@ -125,39 +121,29 @@ body, html {
     animation: paper-sway 6s infinite ease-in-out;
     transition: transform 0.3s ease;
     border: 1px solid #ddd;
-}
-
-.note:hover {
+}.note:hover {
     transform: rotate(-3deg) translateZ(20px) scale(1.05); /* Lifts and enlarges slightly */
-}
-
-@keyframes paper-sway {
+}@keyframes paper-sway {
     0%, 100% {
         transform: rotate(-5deg) rotateZ(0deg) translateZ(15px);
     }
     50% {
         transform: rotate(-5deg) rotateZ(2.5deg) translateX(5px) translateZ(15px);
     }
-}
-
-.tape {
+}.tape {
     position: absolute;
     top: -5px;
     left: 50%;
     transform: translateX(-50%);
-    width: 30%;
+    width: 20%;
     height: 10px;
     background-color: rgba(255, 255, 224, 0.5);
-}
-
-.note .handwritten {
+}.note .handwritten {
     color: #000;
     text-decoration: none;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     font-weight: bold;
-}
-
-.door-knob {
+}.door-knob {
     width: 25px;
     height: 25px;
     background: radial-gradient(circle, #f0e68c, #daa520, #b8860b);
@@ -166,9 +152,7 @@ body, html {
     right: 10px;
     top: 50%;
     transform: translateY(-50%) translateZ(15px);
-}
-
-.doormat {
+}.doormat {
     width: 250px;
     height: 60px;
     background-color: #5D4037;
@@ -184,9 +168,7 @@ body, html {
     color: #BCAAA4;
     transform: perspective(100px) rotateX(15deg) skewX(-20deg);
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-}
-
-.speech-bubble {
+}.speech-bubble {
     position: absolute;
     bottom: 110px; /* Positioned above the dog */
     right: 16%; /* Aligned better with the dog */
@@ -202,9 +184,7 @@ body, html {
     visibility: hidden;
     animation: fadeIn 1s ease-in-out 5s forwards;
     z-index: 10;
-}
-
-.speech-bubble::after {
+}.speech-bubble::after {
     content: '';
     position: absolute;
     top: 100%; /* At the bottom of the bubble */
@@ -212,9 +192,7 @@ body, html {
     border-width: 15px 10px 0; /* Downward pointing triangle */
     border-style: solid;
     border-color: #fff transparent transparent;
-}
-
-@keyframes fadeIn {
+}@keyframes fadeIn {
     from {
         opacity: 0;
         visibility: hidden;
@@ -223,9 +201,7 @@ body, html {
         opacity: 1;
         visibility: visible;
     }
-}
-
-/* Environment Styling */
+}/* Environment Styling */
 .window {
     position: absolute;
     z-index: 1;
@@ -237,21 +213,15 @@ body, html {
     border-top-right-radius: 50px;
     bottom: 200px;
     box-shadow: inset 0 0 10px rgba(0,0,0,0.3);
-}
-
-.left-window { left: 5%; }
-.right-window { right: 5%; }
-
-.plant {
+}.left-window { left: 5%; }
+.right-window { right: 5%; }.plant {
     position: absolute;
     z-index: 2;
     bottom: 10px;
     left: 15%;
     width: 80px;
     height: 120px;
-}
-
-.plant::after {
+}.plant::after {
     content: ''; /* Pot */
     position: absolute;
     bottom: 0;
@@ -261,9 +231,7 @@ body, html {
     height: 50px;
     background-color: #d2691e;
     border-radius: 5px 5px 10px 10px;
-}
-
-.leaf {
+}.leaf {
     position: absolute;
     width: 30px;
     height: 30px;
@@ -271,13 +239,9 @@ body, html {
     border-radius: 50%;
     transform-origin: bottom center;
     animation: leaf-sway 4s infinite ease-in-out;
-}
-
-.leaf1 { top: 20px; left: 10px; background-color: #3cb371; animation-delay: 0s; }
+}.leaf1 { top: 20px; left: 10px; background-color: #3cb371; animation-delay: 0s; }
 .leaf2 { top: 10px; left: 40px; animation-delay: 0.5s; }
-.leaf3 { top: 30px; left: 25px; background-color: #228b22; animation-delay: 1s; }
-
-@keyframes leaf-sway {
+.leaf3 { top: 30px; left: 25px; background-color: #228b22; animation-delay: 1s; }@keyframes leaf-sway {
     0%, 100% {
         transform: rotate(0deg) translateX(0);
     }
@@ -285,8 +249,6 @@ body, html {
         transform: rotate(5deg) translateX(5px);
     }
 }
-
-
 .door-container::before {
     content: '';
     position: absolute;
@@ -299,9 +261,7 @@ body, html {
     transform: skewX(-10deg);
     transform-origin: left bottom;
     animation: glow 3s infinite ease-in-out;
-}
-
-/* Dog styles */
+}/* Dog styles */
 :root {
     --color-fur: #ffb141;
     --color-fur-dark: #F5832C;
@@ -312,9 +272,7 @@ body, html {
     --semi-duration: calc(var(--duration) / 2);
     --easing: cubic-bezier(.5, 0, .5, 1);
     --stagger: calc(-1 * var(--semi-duration) / 2);
-}
-
-.dog {
+}.dog {
     z-index: 1;
     height: 300px;
     width: 300px;
@@ -672,13 +630,9 @@ body, html {
     transform-origin: bottom left;
     transform: rotate(-10deg) translateY(50%) scaleX(0.8) scaleY(0.9);
     animation: tail-inner var(--semi-duration) var(--stagger) infinite;
-}
-
-@keyframes glow {
+}@keyframes glow {
     50% { opacity: 0.9; }
-}
-
-@keyframes shadow {
+}@keyframes shadow {
     from, to {
         transform: scaleX(0.75);
     }
@@ -784,9 +738,7 @@ body, html {
     50% {
         transform: rotate(5deg) translateY(50%) scaleX(0.8) scaleY(0.9);
     }
-}
-
-/* Media Queries */
+}/* Media Queries */
 @media (max-width: 600px) {
     .door-container { width: 180px; height: 292.5px; }
     .doormat { width: 200px; height: 50px; font-size: 1.2rem; }
