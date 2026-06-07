@@ -5,7 +5,7 @@ You can think of the game as hide and seek, but you can take transit.
 https://www.youtube.com/c/jetlagthegame
 
 
-                                **Next event: Saturday May 16, 2026**
+                                **Next event: Summer 2026??**
 
 
 ## Rules
@@ -24,4 +24,5 @@ Once the game starts, I will provide funded Clipper cards.
 
 ## Previous runs
 
+May 16, 2026 - lots of people showed up and sheeptester wrote a blog https://sheeptester.github.io/longer-tweets/hide-seek/
 November 1, 2025 - hiders S and N successfully hid from seekers A, C and S in Daly City H Mart
